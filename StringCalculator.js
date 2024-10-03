@@ -2,7 +2,7 @@ const StringCalculator = {
     add: (expression) => {
       if (expression === "") return 0;
   
-       const pieces= expression.split(',');
+       const pieces= expression.split(/,|\n/g);
        let sum = 0;
        
        for(let i = 0 ;i<pieces.length;i++){

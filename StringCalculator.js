@@ -22,7 +22,15 @@ const StringCalculator = {
         delimiters.push(this.extractCustomDelimiter(expression));
         expression = this.extractExpressionWithoutDelimiter(expression);
       }
-      return this.getSubPieces([expression], delimiters); 
+    //   return this.getSubPieces([expression], delimiters); 
+    
+    var pieces = this.getSubPieces([expression], delimiters); 
+    var pieceValues = [];
+    for (var i = 0; i < pieces.length; i++) {
+      pieceValues.push(parseInt(pieces[i])); 
+    }
+
+    return pieceValues;
     },
 
     getSubPieces: function (piecesSoFar, delimiters) {
@@ -47,7 +55,6 @@ const StringCalculator = {
             sum += parseInt(pieces[i]) || 0; 
           }
         }
-    
         return sum;
       },
 

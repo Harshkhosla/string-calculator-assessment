@@ -19,11 +19,10 @@ const StringCalculator = {
     getPieces: function (expression) {
       let delimiters = [",", "\n"];  
       if (this.hasCustomDelimiter(expression)) {
-        delimiters.push(this.extractCustomDelimiter(expression));
-        expression = this.extractExpressionWithoutDelimiter(expression);
+        delimiters = delimiters.concat(this.getCustomDelimiters(expression));
+        expression = this.stripFirstLine(expression);
       }
     //   return this.getSubPieces([expression], delimiters); 
-    
     var pieces = this.getSubPieces([expression], delimiters); 
     var pieceValues = [];
     for (var i = 0; i < pieces.length; i++) {
@@ -32,6 +31,25 @@ const StringCalculator = {
 
     return pieceValues;
     },
+    getCustomDelimiters: function (expression) {
+        var delimiters = [];
+        var delimiterPart = expression.split("\n")[0];
+        var matches = delimiterPart.match(/\[(.*?)\]/g);
+        
+        if (matches) {
+          matches.forEach(match => {
+            delimiters.push(match.slice(1, -1)); 
+          });
+        } else {
+          delimiters.push(delimiterPart.slice(2));
+        }
+    
+        return delimiters;
+      },
+
+      stripFirstLine: function (expression) {
+        return expression.split("\n").slice(1).join("\n"); 
+      },
 
     getSubPieces: function (piecesSoFar, delimiters) {
       if (delimiters.length === 0) {
@@ -60,16 +78,7 @@ const StringCalculator = {
 
     hasCustomDelimiter: function (expression) {
         return expression.startsWith("//");
-      },
-
-    extractCustomDelimiter: function (expression) {
-        const delimiterPart = expression.split("\n")[0];
-        return delimiterPart.slice(2); 
-      },
-
-    extractExpressionWithoutDelimiter: function (expression) {
-        return expression.split("\n")[1];  
-      }  
+      }
       
 };
 

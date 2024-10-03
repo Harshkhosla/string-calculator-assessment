@@ -55,4 +55,9 @@ describe('String Calculator', () => {
          });
       });
 
+      describe('numbers greater than 1000 are not allowed', () => {
+        checkResult("1001,2", 2); 
+        checkResult("1000,2", 1002); 
+      });
+
 })

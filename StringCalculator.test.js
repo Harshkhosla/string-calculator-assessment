@@ -30,6 +30,23 @@ describe('String Calculator', () => {
         checkResult("//;\n1;2", 3);
     });
 
+    describe('parsing multiple multi-character delimiters', () => {
+        var resultingDelimiters;
+        
+        beforeEach(() => {
+          resultingDelimiters = StringCalculator.getCustomDelimiters("//[foo][bar]\n1");
+        });
+    
+        it('should extract foo', () => {
+          expect(resultingDelimiters[0]).toEqual('foo'); 
+        });
+    
+        it('should extract bar', () => {
+          expect(resultingDelimiters[1]).toEqual('bar'); 
+        });
+      });
+    
+
     describe('custom delimiter functionality', () => {
         checkResult("//;\n1;2", 3); 
         checkResult("//|\n1|2|3", 6); 

@@ -30,6 +30,11 @@ describe('String Calculator', () => {
         checkResult("//;\n1;2", 3);
     });
 
+    describe('custom delimiter functionality', () => {
+        checkResult("//;\n1;2", 3); 
+        checkResult("//|\n1|2|3", 6); 
+    });
+
     describe('negative numbers are not allowed', () => {
         var caught = null;
     

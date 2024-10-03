@@ -34,20 +34,25 @@ describe('String Calculator', () => {
         var caught = null;
     
         beforeEach(() => {
-          try {
-            StringCalculator.add("-1");
-          } catch (ex) {
-            caught = ex; 
-          }
-        });
+            try {
+              StringCalculator.add("-1,-42");
+            } catch (ex) {
+              caught = ex; 
+            }
+          });
     
         it('should throw an exception', () => {
           expect(caught).toBeTruthy(); 
         });
     
-        it('should contain the correct error message', () => {
-          expect(caught.message).toBe("Negative numbers are not allowed: -1");
-        });
+        it('should include the first invalid negative term in the exception', () => {
+            expect(caught.indexOf("-1")).not.toBe(-1); 
+          });
+
+
+        it('should include the second invalid negative term in the exception', () => {
+        expect(caught.indexOf("-42")).not.toBe(-1); 
+         });
       });
 
 })

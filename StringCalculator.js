@@ -1,11 +1,20 @@
 const StringCalculator = {
     add: function (expression) {
           const pieces = this.getPieces(expression);
-          var negatives = pieces.filter(num => parseInt(num) < 0);
-          if (negatives.length > 0) {
-            throw new Error("Negative numbers are not allowed: " + negatives.join(", "));
-          }
+          this.checkValidity(pieces);
         return this.calculateSum(pieces);
+    },
+    checkValidity: function (pieces) {
+        var negatives = [];
+    
+        for (var i = 0; i < pieces.length; i++) {
+          if (parseInt(pieces[i]) < 0) {
+            negatives.push(pieces[i]); 
+          }
+        }    
+        if (negatives.length) {
+          throw "Negative numbers are not allowed: " + negatives.join(", ");
+        }
     },
     getPieces: function (expression) {
       let delimiters = [",", "\n"];  

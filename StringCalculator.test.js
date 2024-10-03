@@ -32,18 +32,22 @@ describe('String Calculator', () => {
 
     describe('negative numbers are not allowed', () => {
         var caught = null;
-
-        before(function () {
-            try {
-                StringCalculator.add("-1");
-            } catch (ex) {
-                caught = ex; 
-            }
+    
+        beforeEach(() => {
+          try {
+            StringCalculator.add("-1");
+          } catch (ex) {
+            caught = ex; 
+          }
         });
-
-        it('should throw an exception', function () {
-            expect(caught).toBeTruthy(); 
+    
+        it('should throw an exception', () => {
+          expect(caught).toBeTruthy(); 
         });
-    });
+    
+        it('should contain the correct error message', () => {
+          expect(caught.message).toBe("Negative numbers are not allowed: -1");
+        });
+      });
 
 })

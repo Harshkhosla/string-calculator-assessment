@@ -1,6 +1,10 @@
 const StringCalculator = {
     add: function (expression) {
           const pieces = this.getPieces(expression);
+          var negatives = pieces.filter(num => parseInt(num) < 0);
+          if (negatives.length > 0) {
+            throw new Error("Negative numbers are not allowed: " + negatives.join(", "));
+          }
         return this.calculateSum(pieces);
     },
     getPieces: function (expression) {

@@ -14,5 +14,11 @@ describe('String Calculator', () => {
 
     describe('comma-separator',()=>{
         checkResult("1,2",3);
+        checkResult("7,2",9);
+    })
+
+    describe('new-line-seperator',()=>{
+        checkResult("1\n4", 5);
+        checkResult("4\n2\n3\n4\n5", 19);
     })
 })

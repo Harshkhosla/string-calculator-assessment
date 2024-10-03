@@ -21,4 +21,8 @@ describe('String Calculator', () => {
         checkResult("1\n4", 5);
         checkResult("4\n2\n3\n4\n5", 18);
     })
+
+    describe('mixing-comma-inline-seperator',()=>{
+        checkResult("3\n2,3\n4,5", 17);
+    })
 })

@@ -26,7 +26,9 @@ const StringCalculator = {
     var pieces = this.getSubPieces([expression], delimiters); 
     var pieceValues = [];
     for (var i = 0; i < pieces.length; i++) {
-      pieceValues.push(parseInt(pieces[i])); 
+        if (pieces[i] !== "") {
+            pieceValues.push(parseInt(pieces[i]));
+          }
     }
 
     return pieceValues;

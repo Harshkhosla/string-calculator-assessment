@@ -30,61 +30,64 @@ describe('String Calculator', () => {
         checkResult("//;\n1;2", 3);
     });
 
-    describe('parsing multiple multi-character delimiters', () => {
-        var resultingDelimiters;
-        
-        beforeEach(() => {
-          resultingDelimiters = StringCalculator.getCustomDelimiters("//[foo][bar]\n1");
-        });
-    
-        it('should extract foo', () => {
-          expect(resultingDelimiters[0]).toEqual('foo'); 
-        });
-    
-        it('should extract bar', () => {
-          expect(resultingDelimiters[1]).toEqual('bar'); 
-        });
-      });
-    
-
-    describe('custom delimiter functionality', () => {
-        checkResult("//;\n1;2", 3); 
-        checkResult("//|\n1|2|3", 6); 
-    });
-
-    describe('multiple custom delimiters are allowed', () => {
-        checkResult("//[*][%]\n1*2%3", 6); 
-        checkResult("//[***][%%]\n1***2%%3", 6);
-      });
+   
 
     describe('negative numbers are not allowed', () => {
         var caught = null;
-    
+
         beforeEach(() => {
             try {
-              StringCalculator.add("-1,-42");
+                StringCalculator.add("-1,-42");
             } catch (ex) {
-              caught = ex; 
+                caught = ex;
             }
-          });
-    
-        it('should throw an exception', () => {
-          expect(caught).toBeTruthy(); 
         });
-    
+
+        it('should throw an exception', () => {
+            expect(caught).toBeTruthy();
+        });
+
         it('should include the first invalid negative term in the exception', () => {
-            expect(caught.indexOf("-1")).not.toBe(-1); 
-          });
+            expect(caught.indexOf("-1")).not.toBe(-1);
+        });
 
 
         it('should include the second invalid negative term in the exception', () => {
-        expect(caught.indexOf("-42")).not.toBe(-1); 
-         });
-      });
+            expect(caught.indexOf("-42")).not.toBe(-1);
+        });
+    });
 
-      describe('numbers greater than 1000 are not allowed', () => {
-        checkResult("1001,2", 2); 
-        checkResult("1000,2", 1002); 
-      });
+    describe('numbers greater than 1000 are not allowed', () => {
+        checkResult("1001,2", 2);
+        checkResult("1000,2", 1002);
+    });
+
+
+    describe('parsing multiple multi-character delimiters', () => {
+        var resultingDelimiters;
+
+        beforeEach(() => {
+            resultingDelimiters = StringCalculator.getCustomDelimiters("//[foo][bar]\n1");
+        });
+
+        it('should extract foo', () => {
+            expect(resultingDelimiters[0]).toEqual('foo');
+        });
+
+        it('should extract bar', () => {
+            expect(resultingDelimiters[1]).toEqual('bar');
+        });
+    });
+
+
+    describe('custom delimiter functionality', () => {
+        checkResult("//;\n1;2", 3);
+        checkResult("//|\n1|2|3", 6);
+    });
+
+    describe('multiple custom delimiters are allowed', () => {
+        checkResult("//[*][%]\n1*2%3", 6);
+        checkResult("//[***][%%]\n1***2%%3", 6);
+    });
 
 })
